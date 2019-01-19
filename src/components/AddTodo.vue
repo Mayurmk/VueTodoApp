@@ -1,43 +1,53 @@
 <template>
-    <div>
-        <form @submit="addTodo">
-            <input type="text" name="title" v-model="title" placeholder="Add Todo">
-            <input type="submit" value="Submit" class="btn">
-        </form>
-    </div>
+    <b-container>
+        <b-row>
+            <b-col>
+                <form @submit="addTodo">
+                    <b-form-input name="title" v-model="title" placeholder="Add Todo"/>
+                    <b-form-input name="completed" v-model="completed" placeholder="flag (true | false)"/>
+                    <!--<input type="submit" value="Submit" class="btn" />-->
+                    <b-button variant="outline-primary" type="submit">Save</b-button>
+                </form>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
-// import uuid from 'uuid';
+    // import uuid from 'uuid';
 
-export default {
-    name: 'AddTodo',
-    data() {
-        return {
-            title: ''
-        }
-    },
-    methods: {
-        addTodo(e) {
-            e.preventDefault();
-            const newTodo = {
-                title: this.title,
-                completed: false 
+    export default {
+        name: 'AddTodo',
+        data() {
+            return {
+                title: '',
+                completed: ''
             }
-            // send to parent
+        },
+        methods: {
+            addTodo(e) {
+                e.preventDefault();
+                const newTodo = {
+                    title: this.title,
+                    completed: this.completed,
+                };
+                // send to parent
 
-            this.$emit('add-todo', newTodo);
+                this.$emit('add-todo', newTodo);
 
-            this.title = '';
+                this.title = '';
+                this.completed = '';
+
+            }
         }
     }
-}
 </script>
 
 <style scoped>
-    .form {
+    form {
         display: flex;
     }
+
     input[type="text"] {
         flex: 10;
         padding: 5px;
